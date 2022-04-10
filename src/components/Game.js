@@ -1,8 +1,9 @@
 import React, { useState } from "react"
+import words from "../data/words.json"
 import "../styles/Game.css"
 import Board from "./Board"
 import Keyboard from "./Keyboard"
-
+import { binarySearch } from "../utils/binarySearch"
 // this is a stateful component
 // this component represents the entire game
 // it has a state of the current index of the word
@@ -25,6 +26,12 @@ const Game = () => {
 	// or sum letters are ok
 	const submitWord = (word) => {
 		console.log(word)
+		if (!binarySearch(words, word, 0, words.length)) {
+			console.log("Word is not in the list")
+			// return false
+		} else {
+			console.log("Word is in the list")
+		}
 		// since the previous word was submitted, the word number will be incremented
 		// so the board moves to the next row
 		setWordNo((prev) => prev + 1)
