@@ -26,7 +26,7 @@ const Game = () => {
 	// or sum letters are ok
 	const submitWord = (word) => {
 		console.log(word)
-		if (!binarySearch(words, word, 0, words.length)) {
+		if (!binarySearch(words, word, 0, words.length - 1)) {
 			console.log("Word is not in the list")
 			// return false
 		} else {
