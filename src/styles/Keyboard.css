@@ -1,0 +1,9 @@
+.keyboard {
+	margin-top: 3em;
+}
+
+.Keyboard-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

@@ -1,0 +1,10 @@
+.Game {
+	width: 25em;
+	position: relative;
+}
+
+@media screen and (max-width: 450px) {
+	.Game {
+		width: 95%;
+	}
+}

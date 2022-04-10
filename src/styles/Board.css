@@ -1,0 +1,9 @@
+.Board {
+	padding-top: 40px;
+}
+
+.Board-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

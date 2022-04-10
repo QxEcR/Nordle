@@ -1,0 +1,24 @@
+.Tile {
+	width: 3em;
+	height: 3em;
+	display: grid;
+	place-items: center;
+	font-size: 18px;
+	color: #fff;
+	border: 1px solid white;
+	background-color: #3a3a3c;
+	margin-bottom: 5px;
+	user-select: none;
+}
+
+.Tile:not(:last-child) {
+	margin-right: 5px;
+}
+
+.Tile.correct {
+	background-color: #538d4e;
+}
+
+.Tile.wrong-place {
+	background-color: #b59f3b;
+}
