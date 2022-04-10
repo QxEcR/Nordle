@@ -11,8 +11,13 @@
 body {
 	width: 100vw;
 	height: 100vh;
-	overflow: hidden;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	overflow-y: scroll;
 	background-color: #121213;
+}
+body::-webkit-scrollbar {
+	display: none;
 }
 @media screen and (max-height: 750px) {
 	body {

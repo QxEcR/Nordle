@@ -3,6 +3,7 @@ import "../styles/Key.css"
 
 // this is a stateless component
 // this component represents a single key on the keyboard
+// this component is used in the Keyboard component
 // the click handler will call the passed function to append the letter to the word
 // the key maybe wide or narrow depending on the isWide prop
 // the letter will be the letter passed as props

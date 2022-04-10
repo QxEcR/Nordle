@@ -14,7 +14,6 @@ import "../styles/Keyboard.css"
 
 
 */
-
 const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 	// the state of the word that is currently being typed
 	// this word will be passed to the submitWord function
