@@ -20,6 +20,10 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 	// if the user presses the enter key
 	const [word, setWord] = useState("")
 
+	// this state is used to check if the message is shown or not
+	// the message is shown when the user has typed a not valid word
+	const [isWordValid, setIsWordValid] = useState(false)
+
 	// the deleteLetter function will remove the last letter from the word
 	// deleteLetter function will be called from the useEffect hook
 	// the useEffect hook will be called every time the index changes (increment or decrement)
@@ -78,6 +82,23 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 		}
 	}
 
+	// this function will empty the entire row
+	// this will get activated when the user input is not a valid word
+	const emptyRow = () => {
+		const row = document.getElementById(`row${wordNo}`)
+		for (let i = 0; i < row.children.length; i++) {
+			row.children[i].innerHTML = ""
+		}
+	}
+
+	// when the user enter a wrong word, the message will be displayed
+	// this function holds the responsability of the hiding the message after 2 seconds
+	const handleAlertDisappear = () => {
+		setTimeout(() => {
+			setIsWordValid(false)
+		}, 2000)
+	}
+
 	// this function is for submitting the word to the submitWord function in Game.js
 	// all the logic is done in submitWord function
 	// this function will call the submitWord function in Game.js
@@ -86,7 +107,12 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 	// this function is passed to the "Enter" Key component as a prop
 	const handleClickToSubmitWord = () => {
 		if (word.length === 5) {
-			submitWord(word.toLowerCase())
+			let result = submitWord(word.toLowerCase())
+			if (!result) {
+				emptyRow()
+				setIsWordValid(true)
+				handleAlertDisappear()
+			}
 			setWord("")
 			setIndex(0)
 		}
@@ -120,6 +146,11 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 
 	return (
 		<div className='keyboard'>
+			{isWordValid && (
+				<div className='alert'>
+					<p>Word is not in the dictionary</p>
+				</div>
+			)}
 			<div className='Keyboard-row'>
 				{["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((letter) => (
 					<Key

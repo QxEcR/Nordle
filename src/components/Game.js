@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import words from "../data/words.json"
 import "../styles/Game.css"
 import Board from "./Board"
@@ -19,6 +19,53 @@ const Game = () => {
 	// if the word number is 1, the current row to input in is the first row, and so on
 	const [wordNo, setWordNo] = useState(1)
 
+	// the state for the current target word to guess and the decoy
+	const [targetWord, setTargetWord] = useState("")
+	const [decoyWord, setDecoyWord] = useState("")
+
+	// constant for the number of letters in the target and decoy word
+	const WORD_LENGTH = 5
+
+	// when the component mounts, the target word is set randomly
+	useEffect(() => {
+		setTargetWord(selectRandomWord())
+	}, [])
+
+	// when the targer word is set, the decoy word is set
+	useEffect(() => {
+		if (targetWord.length === WORD_LENGTH) {
+			assignDecoy()
+		}
+	}, [targetWord])
+
+	// select a random word from the words array
+	const selectRandomWord = () => words[Math.floor(Math.random() * words.length)]
+
+	// assign a decoy word to the decoyWord state using the findAnyCommonLetters function
+	// to insure that the decoy word does not have any same letter  as the target word
+	const assignDecoy = () => {
+		let decoy = selectRandomWord()
+		let isAnyLetterSame = true
+		while (isAnyLetterSame) {
+			if (findAnyCommonLetters(targetWord, decoy)) {
+				decoy = selectRandomWord()
+			} else {
+				isAnyLetterSame = false
+			}
+		}
+		setDecoyWord(decoy)
+	}
+
+	// function to find if any letter in the target word is also in the decoy word
+	const findAnyCommonLetters = (target, decoy) => {
+		for (let i = 0; i < WORD_LENGTH; i++) {
+			if (decoy.indexOf(target[i]) > -1) {
+				return true
+			}
+		}
+		return false
+	}
+
 	// this function will be called in the Keyboard component
 	// it will be passed down to the Keyboard component as a prop
 	// this function will handle the logic of submitting the word
@@ -27,14 +74,12 @@ const Game = () => {
 	const submitWord = (word) => {
 		console.log(word)
 		if (!binarySearch(words, word, 0, words.length - 1)) {
-			console.log("Word is not in the list")
-			// return false
-		} else {
-			console.log("Word is in the list")
+			return false
 		}
 		// since the previous word was submitted, the word number will be incremented
 		// so the board moves to the next row
 		setWordNo((prev) => prev + 1)
+		return true
 	}
 
 	return (
