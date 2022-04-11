@@ -23,6 +23,10 @@ const Game = () => {
 	const [targetWord, setTargetWord] = useState("")
 	const [decoyWord, setDecoyWord] = useState("")
 
+	// the state for the is the one of the words are found, based on this state, the message will be shown by Keyboard.js
+	const [isTargetWordFound, setIsTargetWordFound] = useState(false)
+	const [isDecoyWordFound, setIsDecoyWordFound] = useState(false)
+
 	// constant for the number of letters in the target and decoy word
 	const WORD_LENGTH = 5
 
@@ -33,6 +37,7 @@ const Game = () => {
 
 	// when the targer word is set, the decoy word is set
 	useEffect(() => {
+		console.log("target: ", targetWord)
 		if (targetWord.length === WORD_LENGTH) {
 			assignDecoy()
 		}
@@ -53,6 +58,7 @@ const Game = () => {
 				isAnyLetterSame = false
 			}
 		}
+		console.log("decoy ", decoy)
 		setDecoyWord(decoy)
 	}
 
@@ -69,12 +75,22 @@ const Game = () => {
 	// this function will be called in the Keyboard component
 	// it will be passed down to the Keyboard component as a prop
 	// this function will handle the logic of submitting the word
-	// it will check if the word is correct
-	// or sum letters are ok
+	// it will check if the word is target or decoy word
+	// and call CheckLetterPlaces function to check if any letter is in the correct place or not
 	const submitWord = (word) => {
 		console.log(word)
 		if (!binarySearch(words, word, 0, words.length - 1)) {
 			return false
+		}
+
+		if (word === targetWord) {
+			setIsDecoyWordFound(false)
+			setIsTargetWordFound(true)
+
+			return true
+		}
+		if (word === decoyWord) {
+			setIsDecoyWordFound(true)
 		}
 		// since the previous word was submitted, the word number will be incremented
 		// so the board moves to the next row
@@ -90,6 +106,8 @@ const Game = () => {
 				setIndex={setIndex}
 				submitWord={submitWord}
 				wordNo={wordNo}
+				isTargetWordFound={isTargetWordFound}
+				isDecoyWordFound={isDecoyWordFound}
 			/>
 		</div>
 	)

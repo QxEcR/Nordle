@@ -14,7 +14,14 @@ import "../styles/Keyboard.css"
 
 
 */
-const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
+const Keyboard = ({
+	index,
+	setIndex,
+	submitWord,
+	wordNo,
+	isTargetWordFound,
+	isDecoyWordFound,
+}) => {
 	// the state of the word that is currently being typed
 	// this word will be passed to the submitWord function
 	// if the user presses the enter key
@@ -22,7 +29,7 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 
 	// this state is used to check if the message is shown or not
 	// the message is shown when the user has typed a not valid word
-	const [isWordValid, setIsWordValid] = useState(false)
+	const [isWordNotValid, setisWordNotValid] = useState(false)
 
 	// the deleteLetter function will remove the last letter from the word
 	// deleteLetter function will be called from the useEffect hook
@@ -66,6 +73,18 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 		}
 	}
 
+	// this function is adding a class to the tile, weathter it is correct or wrong
+	// the class should not be overwritten
+	const addClassToTile = (id, className) => {
+		const tile = document.getElementById(`row${wordNo}`).children[id]
+		if (
+			tile.classList.contains("wrong-place") ||
+			tile.classList.contains("correct")
+		)
+			return
+		tile.classList.add(className)
+	}
+
 	// this function is for handling the logic before and after appending a letter
 	// this function is passed to all "letters" Key component as a prop
 	// it will check the row can hold another letter, if not it will return
@@ -95,7 +114,7 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 	// this function holds the responsability of the hiding the message after 2 seconds
 	const handleAlertDisappear = () => {
 		setTimeout(() => {
-			setIsWordValid(false)
+			setisWordNotValid(false)
 		}, 2000)
 	}
 
@@ -110,12 +129,17 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 			let result = submitWord(word.toLowerCase())
 			if (!result) {
 				emptyRow()
-				setIsWordValid(true)
+				setisWordNotValid(true)
 				handleAlertDisappear()
 			}
-			setWord("")
-			setIndex(0)
+			if (result) {
+				console.log("result")
+			}
+		} else if (word.length < 5) {
+			emptyRow()
 		}
+		setWord("")
+		setIndex(0)
 	}
 
 	// this function is for deleting the last letter from the word
@@ -146,11 +170,6 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 
 	return (
 		<div className='keyboard'>
-			{isWordValid && (
-				<div className='alert'>
-					<p>Word is not in the dictionary</p>
-				</div>
-			)}
 			<div className='Keyboard-row'>
 				{["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((letter) => (
 					<Key
@@ -189,6 +208,23 @@ const Keyboard = ({ index, setIndex, submitWord, wordNo }) => {
 					isWide={true}
 				/>
 			</div>
+			{isWordNotValid && (
+				<div className='alert'>
+					<p>Word is not in the dictionary</p>
+				</div>
+			)}
+
+			{isTargetWordFound && (
+				<div className='alert'>
+					<p>Congratulations, You found the Real word</p>
+				</div>
+			)}
+
+			{isDecoyWordFound && (
+				<div className='alert'>
+					<p>Sorry, You found the Decoy word</p>
+				</div>
+			)}
 		</div>
 	)
 }
