@@ -1,0 +1,51 @@
+.About {
+	margin-top: 2em;
+	color: #fff;
+}
+
+.about-header {
+	display: grid;
+	place-items: center;
+	margin-bottom: 1em;
+}
+
+.About > p,
+.About > p > a {
+	font-size: 1vw;
+	line-height: 1.5em;
+	margin-bottom: 1em;
+	text-align: center;
+}
+.About > p > a {
+	margin-left: 4px;
+	margin-right: 4px;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+	color: #538d4e;
+	text-decoration: none;
+}
+
+.About > .about-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+@media screen and (min-width: 451px) {
+	.About > p,
+	.About > p > a {
+		margin-top: 1em;
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.About > p,
+	.About > p > a {
+		margin-top: 1em;
+		font-size: 3.5vw;
+	}
+}
