@@ -132,8 +132,17 @@ const Keyboard = ({
 				setisWordNotValid(true)
 				handleAlertDisappear()
 			}
-			if (result) {
-				console.log("result")
+			if (result[0]) {
+				result[1].forEach((color, index) => {
+					if (color != null) {
+						addClassToTile(index, color)
+					}
+				})
+				result[2].forEach((color, index) => {
+					if (color != null) {
+						addClassToTile(index, color)
+					}
+				})
 			}
 		} else if (word.length < 5) {
 			emptyRow()

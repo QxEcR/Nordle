@@ -72,6 +72,36 @@ const Game = () => {
 		return false
 	}
 
+	const CheckLetterPlacesForCorrects = (word) => {
+		let corrects = []
+		for (let i = 0; i < WORD_LENGTH; i++) {
+			console.log("word letter:", word[i])
+			console.log("target letter: ", targetWord[i])
+			if (targetWord.includes(word[i]) && word[i] === targetWord[i]) {
+				corrects.push("correct")
+			} else if (decoyWord.includes(word[i]) && word[i] === decoyWord[i]) {
+				corrects.push("correct")
+			} else {
+				corrects.push(null)
+			}
+		}
+		return corrects
+	}
+
+	const CheckLetterPlacesForWrongs = (word) => {
+		let wrongs = []
+		for (let i = 0; i < WORD_LENGTH; i++) {
+			if (targetWord.includes(word[i]) && word[i] !== targetWord[i]) {
+				wrongs.push("wrong-place")
+			} else if (decoyWord.includes(word[i]) && word[i] !== decoyWord[i]) {
+				wrongs.push("wrong-place")
+			} else {
+				wrongs.push(null)
+			}
+		}
+		return wrongs
+	}
+
 	// this function will be called in the Keyboard component
 	// it will be passed down to the Keyboard component as a prop
 	// this function will handle the logic of submitting the word
@@ -87,7 +117,7 @@ const Game = () => {
 			setIsDecoyWordFound(false)
 			setIsTargetWordFound(true)
 
-			return true
+			return [true, ["correct", "correct", "correct", "correct", "correct"]]
 		}
 		if (word === decoyWord) {
 			setIsDecoyWordFound(true)
@@ -95,7 +125,11 @@ const Game = () => {
 		// since the previous word was submitted, the word number will be incremented
 		// so the board moves to the next row
 		setWordNo((prev) => prev + 1)
-		return true
+		return [
+			true,
+			CheckLetterPlacesForCorrects(word),
+			CheckLetterPlacesForWrongs(word),
+		]
 	}
 
 	return (
