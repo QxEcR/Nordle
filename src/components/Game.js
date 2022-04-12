@@ -37,7 +37,6 @@ const Game = () => {
 
 	// when the targer word is set, the decoy word is set
 	useEffect(() => {
-		console.log("target: ", targetWord)
 		if (targetWord.length === WORD_LENGTH) {
 			assignDecoy()
 		}
@@ -58,7 +57,6 @@ const Game = () => {
 				isAnyLetterSame = false
 			}
 		}
-		console.log("decoy ", decoy)
 		setDecoyWord(decoy)
 	}
 
@@ -75,8 +73,6 @@ const Game = () => {
 	const CheckLetterPlacesForCorrects = (word) => {
 		let corrects = []
 		for (let i = 0; i < WORD_LENGTH; i++) {
-			console.log("word letter:", word[i])
-			console.log("target letter: ", targetWord[i])
 			if (targetWord.includes(word[i]) && word[i] === targetWord[i]) {
 				corrects.push("correct")
 			} else if (decoyWord.includes(word[i]) && word[i] === decoyWord[i]) {
@@ -108,7 +104,6 @@ const Game = () => {
 	// it will check if the word is target or decoy word
 	// and call CheckLetterPlaces function to check if any letter is in the correct place or not
 	const submitWord = (word) => {
-		console.log(word)
 		if (!binarySearch(words, word, 0, words.length - 1)) {
 			return false
 		}
