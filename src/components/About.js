@@ -31,7 +31,7 @@ const About = () => {
 				<div className='Tile '>S</div>
 			</div>
 			<br />
-			<p>The letter "R" is in the correct place</p>
+			<p>The letter "R" is not in the correct place</p>
 			<div className='about-row'>
 				<div className='Tile '>E</div>
 				<div className='Tile '>A</div>
@@ -40,7 +40,7 @@ const About = () => {
 				<div className='Tile '>H</div>
 			</div>
 			<br />
-			<p>There are no leter in nither the correct nor the decoy word </p>
+			<p>There are no letter in nither of the correct nor the decoy word </p>
 			<div className='about-row'>
 				<div className='Tile '>A</div>
 				<div className='Tile '>W</div>
