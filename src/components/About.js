@@ -48,6 +48,27 @@ const About = () => {
 				<div className='Tile '>R</div>
 				<div className='Tile '>D</div>
 			</div>
+
+			<br />
+			<p>
+				Multiple greens (or yellows) does not mean they are in the same word
+			</p>
+			<div className='about-row'>
+				<div className='Tile correct'>W</div>
+				<div className='Tile '>O</div>
+				<div className='Tile correct'>R</div>
+				<div className='Tile '>L</div>
+				<div className='Tile '>D</div>
+			</div>
+
+			<div className='about-row'>
+				<div className='Tile wrong-place'>B</div>
+				<div className='Tile '>R</div>
+				<div className='Tile '>I</div>
+				<div className='Tile wrong-place'>C</div>
+				<div className='Tile '>K</div>
+			</div>
+
 			<br />
 			<hr />
 			<br />
