@@ -64,6 +64,22 @@ const Board = () => {
 				<Tile id='3' />
 				<Tile id='4' />
 			</div>
+
+			<div id='row8' className='Board-row'>
+				<Tile id='0' />
+				<Tile id='1' />
+				<Tile id='2' />
+				<Tile id='3' />
+				<Tile id='4' />
+			</div>
+
+			<div id='row9' className='Board-row'>
+				<Tile id='0' />
+				<Tile id='1' />
+				<Tile id='2' />
+				<Tile id='3' />
+				<Tile id='4' />
+			</div>
 		</div>
 	)
 }

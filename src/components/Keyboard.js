@@ -179,6 +179,23 @@ const Keyboard = ({
 
 	return (
 		<div className='keyboard'>
+			{isWordNotValid && (
+				<div className='alert'>
+					<p>Word is not in the dictionary</p>
+				</div>
+			)}
+
+			{isTargetWordFound && (
+				<div className='alert'>
+					<p>Congratulations, You found the Real word</p>
+				</div>
+			)}
+
+			{isDecoyWordFound && (
+				<div className='alert'>
+					<p>Sorry, You found the Decoy word</p>
+				</div>
+			)}
 			<div className='Keyboard-row'>
 				{["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((letter) => (
 					<Key
@@ -199,10 +216,11 @@ const Keyboard = ({
 			</div>
 			<div className='Keyboard-row'>
 				<Key
-					clickHandler={handleClickToSubmitWord}
-					letter='Enter'
+					clickHandler={handleClickToDeleteLetter}
+					letter='Delete'
 					isWide={true}
 				/>
+
 				{["Z", "X", "C", "V", "B", "N", "M"].map((letter) => (
 					<Key
 						key={letter}
@@ -212,28 +230,11 @@ const Keyboard = ({
 				))}
 
 				<Key
-					clickHandler={handleClickToDeleteLetter}
-					letter='Delete'
+					clickHandler={handleClickToSubmitWord}
+					letter='Enter'
 					isWide={true}
 				/>
 			</div>
-			{isWordNotValid && (
-				<div className='alert'>
-					<p>Word is not in the dictionary</p>
-				</div>
-			)}
-
-			{isTargetWordFound && (
-				<div className='alert'>
-					<p>Congratulations, You found the Real word</p>
-				</div>
-			)}
-
-			{isDecoyWordFound && (
-				<div className='alert'>
-					<p>Sorry, You found the Decoy word</p>
-				</div>
-			)}
 		</div>
 	)
 }

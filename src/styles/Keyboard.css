@@ -1,5 +1,6 @@
 .keyboard {
 	margin-top: 3em;
+	position: relative;
 }
 
 .Keyboard-row {
@@ -9,6 +10,10 @@
 }
 
 .alert {
+	position: absolute;
+	top: -40px;
+	width: 100%;
+
 	display: grid;
 	place-items: center;
 	color: white;
