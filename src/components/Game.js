@@ -47,12 +47,6 @@ const Game = () => {
 	}, [])
 
 	useEffect(() => {
-		if (targetWord) console.log(`targetWord is ${targetWord}`)
-	}, [targetWord])
-	useEffect(() => {
-		if (decoyWord) console.log(`decoyWord is ${decoyWord}`)
-	}, [decoyWord])
-	useEffect(() => {
 		if (day) document.getElementById("App-day-counter").innerText = day
 	}, [day])
 
