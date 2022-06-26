@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react"
 import words from "../data/words.json"
+import datedWords from "../data/datedWords.json"
 import "../styles/Game.css"
 import Board from "./Board"
 import Keyboard from "./Keyboard"
 import { binarySearch } from "../utils/binarySearch"
+import getTodayDate from "../utils/getTodayDate"
+
 // this is a stateful component
 // this component represents the entire game
 // it has a state of the current index of the word
 // it has a state of the current word number
 const Game = () => {
+	// the day since the game became daily
+	// the day comes from the datedWords.json
+	const [day, setDay] = useState()
+
 	// the current index of the word
 	// this is used to highlight the current letter in the word
 	// the min value is 0, the max value is 4
@@ -32,43 +39,22 @@ const Game = () => {
 
 	// when the component mounts, the target word is set randomly
 	useEffect(() => {
-		setTargetWord(selectRandomWord())
+		const todayDate = getTodayDate()
+		const dataObject = datedWords[todayDate]
+		setDay(dataObject["day"])
+		setTargetWord(dataObject["target"])
+		setDecoyWord(dataObject["decoy"])
 	}, [])
 
-	// when the targer word is set, the decoy word is set
 	useEffect(() => {
-		if (targetWord.length === WORD_LENGTH) {
-			assignDecoy()
-		}
+		if (targetWord) console.log(`targetWord is ${targetWord}`)
 	}, [targetWord])
-
-	// select a random word from the words array
-	const selectRandomWord = () => words[Math.floor(Math.random() * words.length)]
-
-	// assign a decoy word to the decoyWord state using the findAnyCommonLetters function
-	// to insure that the decoy word does not have any same letter  as the target word
-	const assignDecoy = () => {
-		let decoy = selectRandomWord()
-		let isAnyLetterSame = true
-		while (isAnyLetterSame) {
-			if (findAnyCommonLetters(targetWord, decoy)) {
-				decoy = selectRandomWord()
-			} else {
-				isAnyLetterSame = false
-			}
-		}
-		setDecoyWord(decoy)
-	}
-
-	// function to find if any letter in the target word is also in the decoy word
-	const findAnyCommonLetters = (target, decoy) => {
-		for (let i = 0; i < WORD_LENGTH; i++) {
-			if (decoy.indexOf(target[i]) > -1) {
-				return true
-			}
-		}
-		return false
-	}
+	useEffect(() => {
+		if (decoyWord) console.log(`decoyWord is ${decoyWord}`)
+	}, [decoyWord])
+	useEffect(() => {
+		if (day) document.getElementById("App-day-counter").innerText = day
+	}, [day])
 
 	const CheckLetterPlacesForCorrects = (word) => {
 		let corrects = []
@@ -116,6 +102,9 @@ const Game = () => {
 		}
 		if (word === decoyWord) {
 			setIsDecoyWordFound(true)
+			setTimeout(() => {
+				setIsDecoyWordFound(false)
+			}, 3000)
 		}
 		// since the previous word was submitted, the word number will be incremented
 		// so the board moves to the next row

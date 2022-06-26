@@ -14,7 +14,12 @@ const App = () => {
 	return (
 		<div className='App'>
 			<header className='App-header'>
-				<p>Nordle</p>
+				<div className='App-title'>
+					<p>Nordle</p>
+					<p className='App-day-counter'>
+						Day #<span id='App-day-counter'></span>
+					</p>
+				</div>
 				<div className='App-header-side'>
 					<a href='https://www.buymeacoffee.com/nordlethegame' target='_blank'>
 						<img

@@ -6,13 +6,11 @@ import "../styles/Keyboard.css"
 	this is a statful component
 
 	all params are passed from Game.js
-	params index: the index of the tile that is currently selected
-	params setIndex: a function that sets the index of the tile
-	params submitWord: a function that submits the word
-	params wordNo: the number of the word that is currently being typed
+	param index: the index of the tile that is currently selected
+	param setIndex: a function that sets the index of the tile
+	param submitWord: a function that submits the word
+	param wordNo: the number of the word that is currently being typed
 	NOTE: the wordNo represents the row of the board since the wordNo == the row of the board
-
-
 */
 const Keyboard = ({
 	index,
