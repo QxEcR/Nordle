@@ -136,11 +136,13 @@ const Keyboard = ({
 						addClassToTile(index, color)
 					}
 				})
-				result[2].forEach((color, index) => {
-					if (color != null) {
-						addClassToTile(index, color)
-					}
-				})
+				if (isTargetWordFound) {
+					result[2].forEach((color, index) => {
+						if (color != null) {
+							addClassToTile(index, color)
+						}
+					})
+				}
 			}
 		} else if (word.length < 5) {
 			emptyRow()
